@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tracy Core</title>
+</head>
+<body style="font-family:sans-serif; text-align:center; margin-top:3em;">
+  <h1>🎙️ Tracy Core</h1>
+  <p>Press the mic. Say anything. Tracy listens.</p>
+  <button onclick="startListening()">🎤 Start Talking</button>
+  <p id="output" style="margin-top:2em; font-size:1.2em;"></p>
+
+  <script>
+    function startListening() {
+      const output = document.getElementById('output');
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = 'en-US';
+      recognition.start();
+      recognition.onresult = (e) => {
+        const text = e.results[0][0].transcript;
+        output.innerText = `🧠 Tracy heard: "${text}"`;
+      };
+      recognition.onerror = (e) => {
+        output.innerText = "Error: " + e.error;
+      };
+    }
+  </script>
+</body>
+</html>
